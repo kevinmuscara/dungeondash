@@ -8,8 +8,6 @@ const fogAlpha = 0.8;
 
 const lightDropoff = [0.7, 0.6, 0.3, 0.1];
 
-// Alpha to transition per MS given maximum distance between desired
-// and actual alpha
 const alphaPerMs = 0.004;
 
 function updateTileAlpha(
@@ -17,9 +15,6 @@ function updateTileAlpha(
   delta: number,
   tile: Phaser.Tilemaps.Tile
 ) {
-  // Update faster the further away we are from the desired value,
-  // but restrict the lower bound so we don't get it slowing
-  // down infinitley.
   const distance = Math.max(Math.abs(tile.alpha - desiredAlpha), 0.05);
   const updateFactor = alphaPerMs * delta * distance;
   if (tile.alpha > desiredAlpha) {
@@ -82,7 +77,6 @@ export default class FOVLayer {
   }
 
   updateMRPAS(pos: Phaser.Math.Vector2) {
-    // TODO: performance?
     for (let row of this.map.tiles) {
       for (let tile of row) {
         if (tile.seen) {

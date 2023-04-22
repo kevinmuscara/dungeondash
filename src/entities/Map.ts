@@ -1,6 +1,10 @@
 import Dungeoneer from "dungeoneer";
 import Tile, { TileType } from "./Tile";
 import Slime from "./Slime";
+import Heart from './Heart';
+import Coin from './Coin';
+import Chest from './Chest';
+import Potion from './Potion';
 import Graphics from "../assets/Graphics";
 import DungeonScene from "../scenes/DungeonScene";
 
@@ -14,10 +18,15 @@ export default class Map {
 
   public readonly startingX: number;
   public readonly startingY: number;
-
+  
+  public readonly chests: Chest[];
+  public readonly potions: Potion[];
+  public readonly coins: Coin[];
+  public readonly hearts: Heart[];
   public readonly slimes: Slime[];
 
   public readonly rooms: Dungeoneer.Room[];
+  public numSlimes?: number;
 
   constructor(width: number, height: number, scene: DungeonScene) {
     const dungeon = Dungeoneer.build({
@@ -84,6 +93,10 @@ export default class Map {
         Graphics.environment.indices.floor.outerCorridor
       );
 
+    this.hearts = [];
+    this.chests = [];
+    this.coins = [];
+    this.potions = [];
     this.slimes = [];
 
     for (let room of dungeon.rooms) {
@@ -104,8 +117,29 @@ export default class Map {
         room.x + room.width - 1,
         room.y + room.height - 1
       );
-      const numSlimes = Phaser.Math.Between(1, 3);
-      for (let i = 0; i < numSlimes; i++) {
+
+      const numChests = Phaser.Math.Between(0, 0.5);
+      for(let i = 0; i < numChests; i++) {
+        this.chests.push(new Chest(Phaser.Math.Between(roomTL.x, roomBounds.x), Phaser.Math.Between(roomTL.y, roomBounds.y), scene));
+      }
+
+      const numPotions = Phaser.Math.Between(0, 0.25);
+      for(let i = 0; i < numPotions; i++) {
+        this.potions.push(new Potion(Phaser.Math.Between(roomTL.x, roomBounds.x), Phaser.Math.Between(roomTL.y, roomBounds.y), scene));
+      }
+
+      const numCoins = Phaser.Math.Between(0, 2);
+      for(let i = 0; i < numCoins; i++) {
+        this.coins.push(new Coin(Phaser.Math.Between(roomTL.x, roomBounds.x), Phaser.Math.Between(roomTL.y, roomBounds.y), scene));
+      }
+
+      const numHearts = Phaser.Math.Between(0,1);
+      for(let i = 0; i < numHearts; i++) {
+        this.hearts.push(new Heart(Phaser.Math.Between(roomTL.x, roomBounds.x), Phaser.Math.Between(roomTL.y, roomBounds.y), scene));
+      }
+
+      this.numSlimes = Phaser.Math.Between(0, 7);
+      for (let i = 0; i < this.numSlimes; i++) {
         this.slimes.push(
           new Slime(
             Phaser.Math.Between(roomTL.x, roomBounds.x),
@@ -184,4 +218,5 @@ export default class Map {
       }) != undefined
     );
   }
+
 }

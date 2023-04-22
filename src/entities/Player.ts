@@ -22,6 +22,7 @@ interface Keys {
 
 export default class Player {
   public sprite: Phaser.Physics.Arcade.Sprite;
+  public score: number;
   private keys: Keys;
 
   private attackUntil: number;
@@ -38,6 +39,7 @@ export default class Player {
 
   constructor(x: number, y: number, scene: Phaser.Scene) {
     this.scene = scene;
+    this.score = 0;
     this.sprite = scene.physics.add.sprite(x, y, Graphics.player.name, 0);
     this.sprite.setSize(8, 8);
     this.sprite.setOffset(20, 28);
@@ -100,7 +102,6 @@ export default class Player {
   stagger(): void {
     if (this.time > this.staggerUntil) {
       this.staggered = true;
-      // TODO
       this.scene.cameras.main.shake(150, 0.001);
       this.scene.cameras.main.flash(50, 100, 0, 0);
     }
@@ -131,7 +132,6 @@ export default class Player {
       this.sprite.anims.play(Graphics.player.animations.stagger.key);
 
       this.flashEmitter.start();
-      // this.sprite.setBlendMode(Phaser.BlendModes.MULTIPLY);
     }
 
     if (time < this.attackUntil || time < this.staggerUntil) {

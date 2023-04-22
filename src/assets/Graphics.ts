@@ -4,6 +4,10 @@ import RogueSlime from "../../assets/fongoose/RogueSlime32x32.png";
 import RogueItems from "../../assets/fongoose/RogueItems16x16.png";
 
 import Util from "../../assets/Util.png";
+import Heart from '../../assets/Heart.png';
+import Coin from '../../assets/Coin.png';
+import Chest from '../../assets/Chest.png';
+import Potion from '../../assets/Potion.png';
 
 type AnimConfig = {
   key: string;
@@ -106,8 +110,6 @@ const player: AnimSet = {
       frameRate: 10,
       repeat: -1
     },
-    // Ideally attacks should be five frames at 30fps to
-    // align with the attack duration of 165ms
     slash: {
       key: "playerSlash",
       frames: { frames: [0x1a, 0x1a, 0x1a, 0x1b, 0x1c] },
@@ -165,6 +167,46 @@ const items = {
   file: RogueItems
 };
 
+const chest = {
+  name: 'chest',
+  width: 16,
+  height: 16,
+  file: Chest,
+  indices: {
+    black: 0x00
+  }
+};
+
+const potion = {
+  name: 'potion',
+  width: 12,
+  height: 13,
+  file: Potion,
+  indices: {
+    black: 0x00
+  }
+};
+
+const heart = {
+  name: 'heart',
+  width: 12,
+  height: 10,
+  file: Heart,
+  indices: {
+    black: 0x00
+  }
+};
+
+const coin = {
+  name: 'coin',
+  width: 10,
+  height: 10,
+  file: Coin,
+  indices: {
+    black: 0x00
+  }
+};
+
 const util = {
   name: "util",
   width: 16,
@@ -178,7 +220,11 @@ const util = {
 export default {
   environment,
   player,
+  coin,
+  chest,
+  potion,
+  heart,
   slime,
   items,
-  util
+  util,
 };
