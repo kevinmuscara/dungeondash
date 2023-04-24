@@ -11,8 +11,8 @@ import Chest from '../entities/Chest';
 import Fonts from "../assets/Fonts";
 import eventsCenter from "../EventCenter";
 
-const worldTileHeight = 81;
-const worldTileWidth = 81;
+const worldTileHeight = 181;
+const worldTileWidth = 181;
 
 export default class DungeonScene extends Phaser.Scene {
   lastUpdate?: number;
@@ -345,6 +345,19 @@ export default class DungeonScene extends Phaser.Scene {
       this.heartPlayerCollide,
       this
     );
+
+    this.input.keyboard.on("keydown_Q", () => {
+      this.physics.world.drawDebug = !this.physics.world.drawDebug;
+      if (!this.physics.world.debugGraphic) {
+        this.physics.world.createDebugGraphic();
+      }
+      this.physics.world.debugGraphic.clear();
+      this.roomDebugGraphics!.setVisible(this.physics.world.drawDebug);
+    });
+
+    this.input.keyboard.on("keydown_F", () => {
+      this.fov!.layer.setVisible(!this.fov!.layer.visible);
+    });
 
     this.roomDebugGraphics = this.add.graphics({ x: 0, y: 0 });
     this.roomDebugGraphics.setVisible(false);

@@ -25,10 +25,10 @@ export default class InfoScene extends Phaser.Scene {
     this.instructions = this.add.dynamicBitmapText(15, 25, "default", "", 15);
     this.instructions.setAlpha(0.7);
 
-    this.score = this.add.dynamicBitmapText(15, 85, "default", "", 15);
+    this.score = this.add.dynamicBitmapText(0, screen.height / 2 + 140, "default", "", 15);
     this.score.setAlpha(0.7);
 
-    this.lives = this.add.dynamicBitmapText(15, 112, "default", "", 15);
+    this.lives = this.add.dynamicBitmapText(0, screen.height / 2 + 170, "default", "", 15);
     this.lives.setAlpha(0.7);
 
     this.lastUpdate = 0;

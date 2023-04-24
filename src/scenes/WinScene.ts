@@ -40,13 +40,13 @@ export default class WinScene extends Phaser.Scene {
       this.scene.run('DungeonScene');
     });
 
-    this.instructions = this.add.dynamicBitmapText(screen.width / 3 + 50, screen.height/3, "default", "", 90);
+    this.instructions = this.add.dynamicBitmapText(this.cameras.main.width / 2, this.cameras.main.height / 3.8, "default", "", 90).setOrigin(0.5);
     this.instructions.setAlpha(0.7);
 
-    this.score = this.add.dynamicBitmapText(screen.width / 2.25, screen.height / 3 + 150, "default", "", 35);
+    this.score = this.add.dynamicBitmapText(this.cameras.main.width / 2, this.cameras.main.height / 2 + 100, "default", "", 35).setOrigin(0.5);
     this.score.setAlpha(0.7);
 
-    this.lives = this.add.dynamicBitmapText(screen.width / 2.25, 1050, "default", "", 12);
+    this.lives = this.add.dynamicBitmapText(this.cameras.main.width / 2, this.cameras.main.height / 2 + 330, "default", "", 12).setOrigin(0.5);
     this.lives.setAlpha(0.7);
 
     this.lastUpdate = 0;
